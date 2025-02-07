@@ -9,6 +9,8 @@ if [ "$code_version" != "latest" ]; then
   code_version="tags/$code_version"
 fi
 
+curl -vvv "https://api.github.com/repos/spacelift-io/ec2-workerpool-autoscaler/releases/${code_version}"
+
 release=$(curl -sS "https://api.github.com/repos/spacelift-io/ec2-workerpool-autoscaler/releases/${code_version}" | jq -r --arg ZIP "ec2-workerpool-autoscaler_linux_$code_architecture.zip" '.assets[] | select(.name==$ZIP)')
 
 release_date=$(echo $release | jq -r '.created_at')
